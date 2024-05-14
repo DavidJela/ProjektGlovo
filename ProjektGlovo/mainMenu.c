@@ -9,6 +9,7 @@ int mainMenu(const char* const fileName) {
     static DATA* foundID = NULL;
 
     while (1) {
+        system("cls");
         printf("====================");
         printf("Glovo profit calcualtor v0.1:");
         printf("====================\n");
@@ -42,14 +43,10 @@ int mainMenu(const char* const fileName) {
         }
 
         switch (choice) {
-        case 1:
-            if (arrayData == NULL) {
-                printf("Please load data first before adding a new day.\n");
-                break;
-            }
+        case input:
             addDay(fileName, arrayData);
             break;
-        case 2:
+        case load:
             if (arrayData != NULL) {
                 free(arrayData);
                 arrayData = NULL;
@@ -59,56 +56,56 @@ int mainMenu(const char* const fileName) {
                 exit(EXIT_FAILURE);
             }
             break;
-        case 3:
+        case maxProfitDay:
             if (arrayData == NULL) {
                 printf("Please load data first before working with file!\n");
                 break;
             }
             printMaxProfitDay(arrayData,idData);
             break;
-        case 4:
+        case maxHourDay:
             if (arrayData == NULL) {
                 printf("Please load data first before working with file!\n");
                 break;
             }
             printMaxHourDay(arrayData,idData);
             break;
-        case 5:
+        case sortProfit:
             if (arrayData == NULL) {
                 printf("Please load data first before working with file!\n");
                 break;
             }
             maxProfitPrint(arrayData, idData);
             break;
-        case 6:
+        case sortHour:
             if (arrayData == NULL) {
                 printf("Please load data first before working with file!\n");
                 break;
             }
             maxPerHour(arrayData, idData);
             break;
-        case 7:
+        case delete:
             if (arrayData == NULL) {
                 printf("Please load data first before working with file!\n");
                 break;
             }
             deleteDay(arrayData, fileName);
             break;
-        case 8:
+        case edit:
             if (arrayData == NULL) {
                 printf("Please load data first before working with file!\n");
                 break;
             }
             editDayByID((DATA*) arrayData,fileName);
             break;
-        case 9:
+        case search:
             if (arrayData == NULL) {
                 printf("Please load data first before working with file!\n");
                 break;
             }
             foundID = (DATA*)searchDate(arrayData);
             break;
-        case 10:
+        case programExit:
             choice = exitProgram(arrayData);
             if (choice == 0)
                 return 0;
@@ -116,6 +113,7 @@ int mainMenu(const char* const fileName) {
         default : 
             printf("Invalid selection!\n");
         }
+        system("pause");
     }
 
     return choice;

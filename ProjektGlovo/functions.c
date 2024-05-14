@@ -8,9 +8,9 @@
 
 int idData = 0;
 
+//JEBENI SPACEOVI JOS NAPRAVIT MORAM
 
-
-bool isIdUnique(int id, DATA* arrayData, int size) {
+static bool isIdUnique(int id, DATA* arrayData, int size) {
 	for (int i = 0; i < size; i++) {
 		if (arrayData[i].id == id) {
 			return false;
@@ -18,7 +18,7 @@ bool isIdUnique(int id, DATA* arrayData, int size) {
 	}
 	return true;
 }
-bool isValidMoneyInput(const char* input) {
+static bool isValidMoneyInput(const char* input) {
 	int wholeDigits = 0;
 	int decimalDigits = 0;
 	bool decimalPointEncountered = false;
@@ -49,7 +49,7 @@ bool isValidMoneyInput(const char* input) {
 
 	return (wholeDigits <= 3 && decimalDigits <= 2);
 }
-bool isValidDateInput(const char* input) {
+static bool isValidDateInput(const char* input) {
 	int day, month, year;
 	char format[4];
 	int parsed = sscanf(input, "%d.%d.%d.%3s", &day, &month, &year, format);
@@ -66,6 +66,8 @@ void createFile(const char* fileName) {
 			perror("Error while creating file");
 			exit(EXIT_FAILURE);
 		}
+		int tmp = 0;
+		fwrite(&tmp, sizeof(int), 1, file);
 		fclose(file);
 		printf("File %s successfully created!\n\n", fileName);
 	}
@@ -84,7 +86,6 @@ void addDay(const char* const fileName, DATA* arrayData) {
 		perror("Adding days to data.bin");
 		exit(EXIT_FAILURE);
 	}
-	fread(&idData, sizeof(int), 1, pF);
 	printf("Number of added days: %d\n\n", idData);
 	DATA temp = { 0 };
 	do {
@@ -143,6 +144,7 @@ void addDay(const char* const fileName, DATA* arrayData) {
 			while (getchar() != '\n');
 		}
 	}
+	fread(&idData, sizeof(int), 1, pF);
 	fseek(pF, sizeof(DATA) * idData, SEEK_CUR);
 	fwrite(&temp, sizeof(DATA), 1, pF);
 	rewind(pF);
@@ -152,7 +154,7 @@ void addDay(const char* const fileName, DATA* arrayData) {
 	printf("\n");
 	printf("Data successfully added!\n\n");
 } 
-void* loadPrint(const char* const fileName) {
+DATA* loadPrint(const char* const fileName) {
 	printf("Loading data...\n\n");
 	FILE* pF = fopen(fileName, "rb+");
 	if (pF == NULL) {
@@ -173,7 +175,6 @@ void* loadPrint(const char* const fileName) {
 		printf("Array of Data is empty!\n");
 		return 0;
 	}
-
 	int i;
 	for (i = 0; i < idData; i++) {
 		float dailyProfit = arrayData[i].earned - arrayData[i].spent;
@@ -224,7 +225,7 @@ void printMaxHourDay(DATA* arrayData, int idData) {
 		return;
 	}
 
-	// Find the index of the day with the best hourly earning rate
+
 	int bestHourlyIndex = 0;
 	float bestHourlyRate = arrayData[0].earned/ arrayData[0].workHours;
 	for (int i = 1; i < idData; i++) {
@@ -235,7 +236,6 @@ void printMaxHourDay(DATA* arrayData, int idData) {
 		}
 	}
 
-	// Print the day with the best hourly earning rate
 	printf("Day with best hourly earning rate:\n\n");
 	printf("ID: %d\n", arrayData[bestHourlyIndex].id);
 	printf("Earned: %.2f Eur\n", arrayData[bestHourlyIndex].earned);
@@ -246,7 +246,7 @@ void printMaxHourDay(DATA* arrayData, int idData) {
 	printf("Earned per hour: %.2f Eur\n\n", bestHourlyRate);
 	printf("Successuflly loaded!\n");
 }
-int maxProfit(const void* a, const void* b) {
+int maxProfit(const int* a, const int* b) {
 	const DATA* dataA = (const DATA*)a;
 	const DATA* dataB = (const DATA*)b;
 	float profitA = dataA->earned - dataA->spent;
@@ -270,7 +270,7 @@ void maxProfitPrint(DATA* arrayData, int idData) {
 	}
 	printf("Succesfully sorted!\n");
 }
-int perHour(const void* a, const void* b) {
+int perHour(const int* a, const int* b) {
 	const DATA* dataA = (const DATA*)a;
 	const DATA* dataB = (const DATA*)b;
 	float hourA = dataA->earned / dataA->workHours;
@@ -490,6 +490,8 @@ int exitProgram(DATA* arrayData) {
 		printf("Type \"yes\" if you really want to exit the file, otherwise type \"no\"!\n");
 		if (scanf("%3s", confirm) == 1) {
 			if (strcmp("yes", confirm) == 0) {
+				free(arrayData);
+				arrayData = NULL;
 				return 0;
 			}
 			else if (strcmp("no", confirm) == 0) {
@@ -507,6 +509,8 @@ int exitProgram(DATA* arrayData) {
 			while (getchar() != '\n');
 		}
 	}
+	free(arrayData);
+	arrayData = NULL;
 }
 
 
