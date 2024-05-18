@@ -8,8 +8,6 @@
 
 int idData = 0;
 
-//JEBENI SPACEOVI JOS NAPRAVIT MORAM
-
 static bool isIdUnique(int id, DATA* arrayData, int size) {
 	for (int i = 0; i < size; i++) {
 		if (arrayData[i].id == id) {

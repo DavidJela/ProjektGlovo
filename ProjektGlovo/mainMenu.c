@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "dataType.h"
 #include "functions.h"
 int mainMenu(const char* const fileName) {
@@ -44,6 +45,10 @@ int mainMenu(const char* const fileName) {
 
         switch (choice) {
         case input:
+            if (arrayData == NULL) {
+                printf("Please load data first before working with file!\n");
+                break;
+            }
             addDay(fileName, arrayData);
             break;
         case load:
@@ -115,6 +120,9 @@ int mainMenu(const char* const fileName) {
         }
         system("pause");
     }
+
+    free(arrayData);
+    arrayData = NULL;
 
     return choice;
 }
