@@ -6,6 +6,8 @@
 #include <time.h>
 #include "dataType.h" 
 
+#define CONFIRM 4
+
 int idData = 0;
 
 static bool isIdUnique(int id, DATA* arrayData, int size) {
@@ -244,7 +246,7 @@ void printMaxHourDay(DATA* arrayData, int idData) {
 	printf("Earned per hour: %.2f Eur\n\n", bestHourlyRate);
 	printf("Successuflly loaded!\n");
 }
-int maxProfit(const int* a, const int* b) {
+int maxProfitSort(const int* a, const int* b) {
 	const DATA* dataA = (const DATA*)a;
 	const DATA* dataB = (const DATA*)b;
 	float profitA = dataA->earned - dataA->spent;
@@ -255,7 +257,7 @@ int maxProfit(const int* a, const int* b) {
 	return 0;
 }
 void maxProfitPrint(DATA* arrayData, int idData) {
-	qsort(arrayData, idData, sizeof(DATA), maxProfit);
+	qsort(arrayData, idData, sizeof(DATA), maxProfitSort);
 
 	printf("Sorted data by max profit:\n");
 	for (int i = 0; i < idData; i++) {
@@ -268,7 +270,7 @@ void maxProfitPrint(DATA* arrayData, int idData) {
 	}
 	printf("Succesfully sorted!\n");
 }
-int perHour(const int* a, const int* b) {
+int perHourSort(const int* a, const int* b) {
 	const DATA* dataA = (const DATA*)a;
 	const DATA* dataB = (const DATA*)b;
 	float hourA = dataA->earned / dataA->workHours;
@@ -278,9 +280,9 @@ int perHour(const int* a, const int* b) {
 	if (hourA > hourB) return -1;
 	return 0;
 }
-void maxPerHour(DATA* arrayData, int idData) {
+void maxPerHourPrint(DATA* arrayData, int idData) {
 
-	qsort(arrayData, idData, sizeof(DATA), perHour);
+	qsort(arrayData, idData, sizeof(DATA), perHourSort);
 
 	printf("Sorted data by max profit:\n");
 	for (int i = 0; i < idData; i++) {
@@ -421,7 +423,7 @@ void* searchDate(DATA* const arrayData) {
 }
 void deleteDay(DATA* arrayData, const char* const fileName) {
 	int deleteID;
-	char confirm[4];
+	char confirm[CONFIRM];
 	bool found = false;
 
 	printf("Enter the ID of the day you want to delete: ");
@@ -481,8 +483,21 @@ void deleteDay(DATA* arrayData, const char* const fileName) {
 	fclose(pF);
 	printf("Day with ID %d has been successfully deleted!\n", deleteID);
 }
+int getIdData(const char* const fileName) {
+	FILE* pF = fopen(fileName, "rb");
+	if (pF == NULL) {
+		perror("Error opening file");
+		return -1;
+	}
+
+	int numData;
+	fread(&numData, sizeof(int), 1, pF);
+	fclose(pF);
+
+	return numData;
+}
 int exitProgram(DATA* arrayData) {
-	char confirm[4];
+	char confirm[CONFIRM];
 	while (1) {
 		printf("Do you really want to exit the file\n");
 		printf("Type \"yes\" if you really want to exit the file, otherwise type \"no\"!\n");

@@ -14,13 +14,14 @@ void addDay(const char* const fileName, const DATA* arrayData);
 DATA* loadPrint(const char* const);
 void printMaxProfitDay(const DATA* arrayData, int idData);
 void printMaxHourDay(const DATA* arrayData, int idData);
-int maxProfit(const int* a, const int* b);
+int maxProfitSort(const int* a, const int* b);
 void maxProfitPrint(const DATA* arrayData, int idData);
-int perHour(const int* a, const int* b);
-void maxPerHour(const DATA* arrayData, int idData);
+int perHourSort(const int* a, const int* b);
+void maxPerHourPrint(const DATA* arrayData, int idData);
 void editDayByID(const DATA* arrayData, const char* const fileName);
 void* searchDate(const DATA* const);
 void deleteDay(const DATA* const arrayData, const char* const fileName);
+int getIdData(const char* const fileName);
 int exitProgram(const DATA*);
 
 

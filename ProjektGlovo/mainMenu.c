@@ -1,7 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
 #include "dataType.h"
 #include "functions.h"
 int mainMenu(const char* const fileName) {
@@ -9,6 +8,17 @@ int mainMenu(const char* const fileName) {
     static DATA* arrayData = NULL;
     static DATA* foundID = NULL;
 
+    arrayData = loadPrint(fileName);
+    if (arrayData == NULL) {
+        printf("Error: Unable to read BMW data from file.\n");
+        return -1;
+    }
+
+    idData = getIdData(fileName);
+    if (idData < 0) {
+        printf("Error: Invalid number of BMWs.\n");
+        return -1;
+    }
     while (1) {
         system("cls");
         printf("====================");
@@ -87,7 +97,7 @@ int mainMenu(const char* const fileName) {
                 printf("Please load data first before working with file!\n");
                 break;
             }
-            maxPerHour(arrayData, idData);
+            maxPerHourPrint(arrayData, idData);
             break;
         case delete:
             if (arrayData == NULL) {
