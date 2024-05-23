@@ -42,3 +42,18 @@ int main(void) {
     printf("\033[0m");
 	return 0;
 }
+
+//if (fgets(input2, sizeof(input2), stdin)) {
+//    char* endptr;
+//    long choice2 = strtol(input2, &endptr, 10);
+//
+//    // Ensure that endptr is at the end of the number and any remaining characters are whitespace
+//    if (endptr != input2) {
+//        while (isspace((unsigned char)endptr)) {
+//            endptr++;
+//        }
+//        if (endptr == '\0' || endptr == '\n') {
+//            // Clear input buffer if there is remaining content
+//            while (endptr != '\n' && *endptr != '\0') {
+//                endptr++;
+//            }

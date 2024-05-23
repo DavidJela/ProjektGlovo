@@ -1,8 +1,6 @@
 #pragma once
 
-
 #define DATE_LENGHT	11
-
 
 typedef struct data{
 	char date[DATE_LENGHT];

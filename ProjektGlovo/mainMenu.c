@@ -10,13 +10,13 @@ int mainMenu(const char* const fileName) {
 
     arrayData = loadPrint(fileName);
     if (arrayData == NULL) {
-        printf("Error: Unable to read BMW data from file.\n");
+        printf("Error: Unable to read data from file.\n");
         return -1;
     }
 
     idData = getIdData(fileName);
     if (idData < 0) {
-        printf("Error: Invalid number of BMWs.\n");
+        printf("Error: Invalid number of Data.\n");
         return -1;
     }
     while (1) {
