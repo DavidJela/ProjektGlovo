@@ -39,11 +39,13 @@ int mainMenu(const char* const fileName) {
         printf("\t\t- - - - - - - - - - - -\n");
         printf("\t\t7. Delete certain day\n");
         printf("\t\t- - - - - - - - - - - -\n");
-        printf("\t\t8. Edit day\n");
+        printf("\t\t8. Delete Bin File\n");
         printf("\t\t- - - - - - - - - - - -\n");
-        printf("\t\t9. Search specific day by ID\n");
+        printf("\t\t9 Edit day\n");
         printf("\t\t- - - - - - - - - - - -\n");
-        printf("\t\t10. Exit program\n");
+        printf("\t\t10. Search specific day by ID\n");
+        printf("\t\t- - - - - - - - - - - -\n");
+        printf("\t\t11. Exit program\n");
         printf("\t\t- - - - - - - - - - - -\n");
         printf("=====================================================================\n");
 
@@ -105,6 +107,13 @@ int mainMenu(const char* const fileName) {
                 break;
             }
             deleteDay(arrayData, fileName);
+            break;
+        case deleteF:
+            if (arrayData == NULL) {
+                printf("Please load data first before working with file!\n");
+                break;
+            }
+            deleteFile(fileName);
             break;
         case edit:
             if (arrayData == NULL) {

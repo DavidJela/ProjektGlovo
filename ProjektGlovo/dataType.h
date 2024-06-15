@@ -18,6 +18,7 @@ enum choice {
 	sortProfit,
 	sortHour,
 	delete,
+	deleteF,
 	edit,
 	search,
 	programExit,

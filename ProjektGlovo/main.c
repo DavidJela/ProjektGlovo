@@ -22,7 +22,7 @@ int main(void) {
     printf("\033[0;33m");
     printf("                                                                                               @@@@@@@     \n");
     printf("                                                                                            @@@@@@@@@@@@@  \n");
-    printf("               OVAJ LOGO MI JE POMOGAO FRAN BASIC   <3                                     @@@@@@@@@@@@@@@ \n");
+    printf("                                                                                           @@@@@@@@@@@@@@@ \n");
     printf("                                                                                          @@@@@@     @@@@@@\n");
     printf("                                                                                          @@@@@       @@@@@\n");
     printf("        @@@@@@@@@@         @@@                                                            @@@@@       @@@@@\n");

@@ -76,6 +76,37 @@ void createFile(const char* fileName) {
 		fclose(file);
 	}
 }
+void deleteFile(const char* fileName) {
+	char confirm[CONFIRM];
+	while (1) {
+		printf("Are you sure you want to delete the file %s?\n", fileName);
+		printf("Confirm with yes or no!\n");
+		if (scanf("%3s", confirm) == 1) {
+			if (strcmp("yes", confirm) == 0) {
+				if (remove(fileName) == 0) {
+					printf("Successfully deleted the file %s!\n", fileName);
+				}
+				else {
+					printf("Failed to delete the file %s!\n", fileName);
+				}
+				return;
+			}
+			else if (strcmp("no", confirm) == 0) {
+				return;
+			}
+			else {
+				printf("Invalid input. Please type \"yes\" or \"no\".\n");
+				// Clear input buffer
+				while (getchar() != '\n');
+			}
+		}
+		else {
+			printf("Invalid input. Please type \"yes\" or \"no\".\n");
+			// Clear input buffer
+			while (getchar() != '\n');
+		}
+	}
+}
 void addDay(const char* const fileName, DATA* arrayData) {
 	printf("Adding day:\n\n");
 	bool validInput = false;
