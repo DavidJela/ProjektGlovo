@@ -26,5 +26,3 @@ void deleteDay(const DATA* const arrayData, const char* const fileName);
 int getIdData(const char* const fileName);
 int exitProgram(const DATA*);
 
-
-//void date(char* date);

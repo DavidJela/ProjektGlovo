@@ -7,6 +7,7 @@
 #include "dataType.h" 
 
 #define CONFIRM 4
+#define INPUTLEN 20
 
 int idData = 0;
 
@@ -125,7 +126,7 @@ void addDay(const char* const fileName, DATA* arrayData) {
 	getchar();
 	while (!validInput) {
 		printf("Money earned on the day(Eur): ");
-		char moneyInput[20];
+		char moneyInput[INPUTLEN];
 		scanf("%6s", moneyInput);
 		if (isValidMoneyInput(moneyInput)) {
 			temp.earned = strtof(moneyInput, NULL);
@@ -139,7 +140,7 @@ void addDay(const char* const fileName, DATA* arrayData) {
 	validInput = false;
 	while (!validInput) {
 		printf("Money spent on the day (Eur): ");
-		char moneyInput[20];
+		char moneyInput[INPUTLEN];
 		scanf("%6s", moneyInput);
 		if (isValidMoneyInput(moneyInput)) {
 			temp.spent = strtof(moneyInput, NULL);
@@ -356,10 +357,10 @@ void editDayByID(DATA* arrayData, const char* const fileName) {
 	DATA editedDay = arrayData[foundIndex];
 	bool validInput = false;
 
-	// Edit earned money
+
 	while (!validInput) {
 		printf("Enter new earned amount: ");
-		char moneyInput[20];
+		char moneyInput[INPUTLEN];
 		scanf("%19s", moneyInput);
 		if (isValidMoneyInput(moneyInput)) {
 			editedDay.earned = strtof(moneyInput, NULL);
@@ -367,15 +368,15 @@ void editDayByID(DATA* arrayData, const char* const fileName) {
 		}
 		else {
 			printf("Invalid input. Please enter a valid number with maximum 3 digits and 2 decimal places.\n");
-			while (getchar() != '\n'); // Clear input buffer
+			while (getchar() != '\n'); 
 		}
 	}
 
 	validInput = false;
-	// Edit spent money
+
 	while (!validInput) {
 		printf("Enter new spent amount: ");
-		char moneyInput[20];
+		char moneyInput[INPUTLEN];
 		scanf("%19s", moneyInput);
 		if (isValidMoneyInput(moneyInput)) {
 			editedDay.spent = strtof(moneyInput, NULL);
@@ -383,30 +384,30 @@ void editDayByID(DATA* arrayData, const char* const fileName) {
 		}
 		else {
 			printf("Invalid input. Please enter a valid number with maximum 3 digits and 2 decimal places.\n");
-			while (getchar() != '\n'); // Clear input buffer
+			while (getchar() != '\n'); 
 		}
 	}
 
 	validInput = false;
-	// Edit date
+
 	while (!validInput) {
 		printf("Enter new date (DD.MM.YYYY): ");
 		if (scanf("%11s", editedDay.date) == 1 && isValidDateInput(editedDay.date)) {
-			// Check if the last character of the date string is a dot
+	
 			if (editedDay.date[strlen(editedDay.date) - 1] != '.') {
-				// Append a dot at the end of the year
+		
 				strcat(editedDay.date, ".");
 			}
 			validInput = true;
 		}
 		else {
 			printf("Invalid date format. Please enter date in the format DD.MM.YYYY.\n");
-			while (getchar() != '\n'); // Clear input buffer
+			while (getchar() != '\n'); 
 		}
 	}
 
 	validInput = false;
-	// Edit work hours
+
 	while (!validInput) {
 		printf("Enter new work hours (Max 12hrs): ");
 		if (scanf("%d", &editedDay.workHours) == 1 && editedDay.workHours > 0 && editedDay.workHours <= 12) {
@@ -414,13 +415,12 @@ void editDayByID(DATA* arrayData, const char* const fileName) {
 		}
 		else {
 			printf("Invalid input. Please enter a valid number of hours (0 to 12).\n");
-			while (getchar() != '\n'); // Clear input buffer
+			while (getchar() != '\n'); 
 		}
 	}
 
 	fseek(pF, sizeof(int) + foundIndex * sizeof(DATA), SEEK_SET);
 	fwrite(&editedDay, sizeof(DATA), 1, pF);
-
 	fclose(pF);
 	printf("Day with ID %d has been successfully edited!\n", editID);
 }
@@ -464,7 +464,7 @@ void deleteDay(DATA* arrayData, const char* const fileName) {
 		while (getchar() != '\n');
 	}
 
-	// Check if deleteID exists in arrayData
+
 	for (int i = 0; i < idData; i++) {
 		if (arrayData[i].id == deleteID) {
 			found = true;
@@ -477,7 +477,7 @@ void deleteDay(DATA* arrayData, const char* const fileName) {
 		return;
 	}
 
-	// Confirm deletion with user
+
 	while (1) {
 		printf("Are you sure you want to delete the selected day? Type \"yes\" to confirm or \"no\" to cancel: ");
 		scanf("%3s", confirm);
@@ -530,9 +530,12 @@ int getIdData(const char* const fileName) {
 int exitProgram(DATA* arrayData) {
 	char confirm[CONFIRM];
 	while (1) {
-		printf("Do you really want to exit the file\n");
+		printf("Do you really want to exit the file?\n");
 		printf("Type \"yes\" if you really want to exit the file, otherwise type \"no\"!\n");
 		if (scanf("%3s", confirm) == 1) {
+
+			while (getchar() != '\n');
+
 			if (strcmp("yes", confirm) == 0) {
 				free(arrayData);
 				arrayData = NULL;
@@ -543,26 +546,12 @@ int exitProgram(DATA* arrayData) {
 			}
 			else {
 				printf("Invalid input. Please type \"yes\" or \"no\".\n");
-				// Clear input buffer
-				while (getchar() != '\n');
 			}
 		}
 		else {
 			printf("Invalid input. Please type \"yes\" or \"no\".\n");
-			// Clear input buffer
+
 			while (getchar() != '\n');
 		}
 	}
-	free(arrayData);
-	arrayData = NULL;
 }
-
-
-//void date(char* date) {
-//	// Get current date
-//	time_t t = time(NULL); jednog dana mozda
-//	struct tm* current_time = localtime(&t);
-//
-//	// Format current date into the desired string format
-//	sprintf(date, "%02d.%02d.%d.", current_time->tm_mday, current_time->tm_mon + 1, current_time->tm_year + 1900);
-//}

@@ -4,7 +4,9 @@
 #include "dataType.h"
 #include "functions.h"
 int mainMenu(const char* const fileName) {
+    
     int choice = 0;
+
     static DATA* arrayData = NULL;
     static DATA* foundID = NULL;
 
