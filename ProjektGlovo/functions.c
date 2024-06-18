@@ -77,7 +77,7 @@ void createFile(const char* fileName) {
 		fclose(file);
 	}
 }
-void deleteFile(const char* fileName) {
+int deleteFile(const char* fileName) {
 	char confirm[CONFIRM];
 	while (1) {
 		printf("Are you sure you want to delete the file %s?\n", fileName);
@@ -532,13 +532,15 @@ int exitProgram(DATA* arrayData) {
 	while (1) {
 		printf("Do you really want to exit the file?\n");
 		printf("Type \"yes\" if you really want to exit the file, otherwise type \"no\"!\n");
-		if (scanf("%3s", confirm) == 1) {
+		if (scanf("%3s", confirm) == 1) { 
 
 			while (getchar() != '\n');
 
 			if (strcmp("yes", confirm) == 0) {
-				free(arrayData);
-				arrayData = NULL;
+				if (arrayData != NULL) {
+					free(arrayData);
+					arrayData = NULL;
+				}
 				return 0;
 			}
 			else if (strcmp("no", confirm) == 0) {

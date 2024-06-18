@@ -10,7 +10,7 @@ bool isValidDateInput(const char* input);
 
 
 void createFile(const char* const);
-void deleteFile(const char* const);
+int deleteFile(const char* const);
 int mainMenu(const char* const);
 void addDay(const char* const fileName, const DATA* arrayData);
 DATA* loadPrint(const char* const);

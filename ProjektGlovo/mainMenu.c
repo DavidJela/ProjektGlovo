@@ -59,10 +59,6 @@ int mainMenu(const char* const fileName) {
 
         switch (choice) {
         case input:
-            if (arrayData == NULL) {
-                printf("Please load data first before working with file!\n");
-                break;
-            }
             addDay(fileName, arrayData);
             break;
         case load:
@@ -76,59 +72,44 @@ int mainMenu(const char* const fileName) {
             }
             break;
         case maxProfitDay:
-            if (arrayData == NULL) {
-                printf("Please load data first before working with file!\n");
-                break;
-            }
             printMaxProfitDay(arrayData,idData);
             break;
         case maxHourDay:
-            if (arrayData == NULL) {
-                printf("Please load data first before working with file!\n");
-                break;
-            }
             printMaxHourDay(arrayData,idData);
             break;
         case sortProfit:
-            if (arrayData == NULL) {
-                printf("Please load data first before working with file!\n");
-                break;
-            }
             maxProfitPrint(arrayData, idData);
             break;
         case sortHour:
-            if (arrayData == NULL) {
-                printf("Please load data first before working with file!\n");
-                break;
-            }
             maxPerHourPrint(arrayData, idData);
             break;
         case delete:
-            if (arrayData == NULL) {
-                printf("Please load data first before working with file!\n");
-                break;
+            if (deleteFile(fileName) == 0) {
+                createFile(fileName);
+
+                if (arrayData != NULL) {
+                    free(arrayData);
+                }
+
+                arrayData = loadPrint(fileName);
+                if (arrayData == NULL) {
+                    printf("Failed to reload data after deletion.\n");
+                    createFile(fileName);
+                    arrayData = loadPrint(fileName);
+                    if (arrayData == NULL) {
+                        printf("Unable to create and load data.\n");
+                        return -1;
+                    }
+                }
             }
-            deleteDay(arrayData, fileName);
             break;
         case deleteF:
-            if (arrayData == NULL) {
-                printf("Please load data first before working with file!\n");
-                break;
-            }
             deleteFile(fileName);
             break;
         case edit:
-            if (arrayData == NULL) {
-                printf("Please load data first before working with file!\n");
-                break;
-            }
             editDayByID((DATA*) arrayData,fileName);
             break;
         case search:
-            if (arrayData == NULL) {
-                printf("Please load data first before working with file!\n");
-                break;
-            }
             foundID = (DATA*)searchDate(arrayData);
             break;
         case programExit:
