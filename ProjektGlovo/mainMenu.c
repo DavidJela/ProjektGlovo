@@ -16,11 +16,11 @@ int mainMenu(const char* const fileName) {
         return -1;
     }
 
-    idData = getIdData(fileName);
+    /*idData = getIdData(fileName);
     if (idData < 0) {
         printf("Error: Invalid number of Data.\n");
         return -1;
-    }
+    }*/
     while (1) {
         system("cls");
         printf("====================");

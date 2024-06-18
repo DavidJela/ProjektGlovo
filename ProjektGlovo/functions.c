@@ -77,37 +77,6 @@ void createFile(const char* fileName) {
 		fclose(file);
 	}
 }
-int deleteFile(const char* fileName) {
-	char confirm[CONFIRMINP];
-	while (1) {
-		printf("Are you sure you want to delete the file %s?\n", fileName);
-		printf("Confirm with yes or no!\n");
-		if (scanf("%3s", confirm) == 1) {
-			if (strcmp("yes", confirm) == 0) {
-				if (remove(fileName) == 0) {
-					printf("Successfully deleted the file %s!\n", fileName);
-				}
-				else {
-					printf("Failed to delete the file %s!\n", fileName);
-				}
-				return;
-			}
-			else if (strcmp("no", confirm) == 0) {
-				return;
-			}
-			else {
-				printf("Invalid input. Please type \"yes\" or \"no\".\n");
-				// Clear input buffer
-				while (getchar() != '\n');
-			}
-		}
-		else {
-			printf("Invalid input. Please type \"yes\" or \"no\".\n");
-			// Clear input buffer
-			while (getchar() != '\n');
-		}
-	}
-}
 void addDay(const char* const fileName, DATA* arrayData) {
 	printf("Adding day:\n\n");
 	bool validInput = false;
@@ -289,6 +258,10 @@ int maxProfitSort(const int* a, const int* b) {
 	return 0;
 }
 void maxProfitPrint(DATA* arrayData, int idData) {
+	if (idData <= 0) {
+		printf("No data available.\n");
+		return;
+	}
 	qsort(arrayData, idData, sizeof(DATA), maxProfitSort);
 
 	printf("Sorted data by max profit:\n");
@@ -313,6 +286,10 @@ int perHourSort(const int* a, const int* b) {
 	return 0;
 }
 void maxPerHourPrint(DATA* arrayData, int idData) {
+	if (idData <= 0) {
+		printf("No data available.\n");
+		return;
+	}
 
 	qsort(arrayData, idData, sizeof(DATA), perHourSort);
 
@@ -333,7 +310,10 @@ void editDayByID(DATA* arrayData, const char* const fileName) {
 		perror("Editing day in data.bin");
 		exit(EXIT_FAILURE);
 	}
-
+	if (idData <= 0) {
+		printf("No data available.\n");
+		return;
+	}
 	fseek(pF, sizeof(int), SEEK_SET); // Skip the ID count
 	int editID;
 	printf("Enter the ID of the day you want to edit: ");
@@ -425,6 +405,10 @@ void editDayByID(DATA* arrayData, const char* const fileName) {
 	printf("Day with ID %d has been successfully edited!\n", editID);
 }
 void* searchDate(DATA* const arrayData) {
+	if (idData <= 0) {
+		printf("No data available.\n");
+		return;
+	}
 
 	if (arrayData == NULL) {
 		printf("Array of data is empty, please load data if you have any!\n");
@@ -453,6 +437,10 @@ void* searchDate(DATA* const arrayData) {
 	return NULL;
 }
 void deleteDay(DATA* arrayData, const char* const fileName) {
+	if (idData <= 0) {
+		printf("No data available.\n");
+		return;
+	}
 	int deleteID;
 	char confirm[CONFIRMINP];
 	bool found = false;
@@ -514,18 +502,36 @@ void deleteDay(DATA* arrayData, const char* const fileName) {
 	fclose(pF);
 	printf("Day with ID %d has been successfully deleted!\n", deleteID);
 }
-int getIdData(const char* const fileName) {
-	FILE* pF = fopen(fileName, "rb");
-	if (pF == NULL) {
-		perror("Error opening file");
-		return -1;
+int deleteFile(const char* fileName) {
+	char confirm[CONFIRMINP];
+	while (1) {
+		printf("Are you sure you want to delete the file %s?\n", fileName);
+		printf("Confirm with yes or no!\n");
+		if (scanf("%3s", confirm) == 1) {
+			if (strcmp("yes", confirm) == 0) {
+				if (remove(fileName) == 0) {
+					printf("Successfully deleted the file %s!\n", fileName);
+				}
+				else {
+					printf("Failed to delete the file %s!\n", fileName);
+				}
+				return;
+			}
+			else if (strcmp("no", confirm) == 0) {
+				return;
+			}
+			else {
+				printf("Invalid input. Please type \"yes\" or \"no\".\n");
+				// Clear input buffer
+				while (getchar() != '\n');
+			}
+		}
+		else {
+			printf("Invalid input. Please type \"yes\" or \"no\".\n");
+			// Clear input buffer
+			while (getchar() != '\n');
+		}
 	}
-
-	int numData;
-	fread(&numData, sizeof(int), 1, pF);
-	fclose(pF);
-
-	return numData;
 }
 int exitProgram(DATA* arrayData) {
 	char confirm[CONFIRMINP];
@@ -557,3 +563,19 @@ int exitProgram(DATA* arrayData) {
 		}
 	}
 }
+
+
+//Fix?
+//int getIdData(const char* const fileName) {
+//	FILE* pF = fopen(fileName, "rb");
+//	if (pF == NULL) {
+//		perror("Error opening file");
+//		return -1;
+//	}
+//
+//	int numData;
+//	fread(&numData, sizeof(int), 1, pF);
+//	fclose(pF);
+//
+//	return numData;
+//}

@@ -10,7 +10,6 @@ bool isValidDateInput(const char* input);
 
 
 DATA* loadPrint(const char* const);
-int getIdData(const char* const fileName);
 int exitProgram(const DATA*);
 int deleteFile(const char* const);
 int mainMenu(const char* const);
@@ -25,5 +24,7 @@ void maxPerHourPrint(const DATA* arrayData, int idData);
 void editDayByID(const DATA* arrayData, const char* const fileName);
 void* searchDate(const DATA* const);
 void deleteDay(const DATA* const arrayData, const char* const fileName);
+
+//int getIdData(const char* const fileName);
 
 
