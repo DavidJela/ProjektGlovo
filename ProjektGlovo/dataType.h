@@ -11,15 +11,15 @@ typedef struct data{
 }DATA;
 
 enum choice {
-	input = 1,
-	load,
-	maxProfitDay,
-	maxHourDay,
-	sortProfit,
-	sortHour,
-	delete,
-	deleteF,
-	edit,
-	search,
-	programExit,
+	INPUT = 1,
+	LOAD,
+	MAX_PROFIT_DAY,
+	MAX_HOUR_DAY,
+	SORT_PROFIT,
+	SORT_HOUR,
+	DELETE_DAY,
+	DELETE_F,
+	EDIT_DAY,
+	SEARCH_DAY,
+	PROGRAM_EXIT,
 };

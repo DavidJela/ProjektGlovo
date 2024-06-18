@@ -6,7 +6,7 @@
 #include <time.h>
 #include "dataType.h" 
 
-#define CONFIRM 4
+#define CONFIRMINP 4
 #define INPUTLEN 20
 
 int idData = 0;
@@ -52,7 +52,7 @@ static bool isValidMoneyInput(const char* input) {
 }
 static bool isValidDateInput(const char* input) {
 	int day, month, year;
-	char format[4];
+	char format[CONFIRMINP];
 	int parsed = sscanf(input, "%d.%d.%d.%3s", &day, &month, &year, format);
 	return (parsed == 3 && month >= 1 && month <= 12 && day >= 1 && day <= 31 && year > 2023);
 }
@@ -78,7 +78,7 @@ void createFile(const char* fileName) {
 	}
 }
 int deleteFile(const char* fileName) {
-	char confirm[CONFIRM];
+	char confirm[CONFIRMINP];
 	while (1) {
 		printf("Are you sure you want to delete the file %s?\n", fileName);
 		printf("Confirm with yes or no!\n");
@@ -454,7 +454,7 @@ void* searchDate(DATA* const arrayData) {
 }
 void deleteDay(DATA* arrayData, const char* const fileName) {
 	int deleteID;
-	char confirm[CONFIRM];
+	char confirm[CONFIRMINP];
 	bool found = false;
 
 	printf("Enter the ID of the day you want to delete: ");
@@ -528,7 +528,7 @@ int getIdData(const char* const fileName) {
 	return numData;
 }
 int exitProgram(DATA* arrayData) {
-	char confirm[CONFIRM];
+	char confirm[CONFIRMINP];
 	while (1) {
 		printf("Do you really want to exit the file?\n");
 		printf("Type \"yes\" if you really want to exit the file, otherwise type \"no\"!\n");

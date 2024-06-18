@@ -58,10 +58,10 @@ int mainMenu(const char* const fileName) {
         }
 
         switch (choice) {
-        case input:
+        case INPUT:
             addDay(fileName, arrayData);
             break;
-        case load:
+        case LOAD:
             if (arrayData != NULL) {
                 free(arrayData);
                 arrayData = NULL;
@@ -71,19 +71,22 @@ int mainMenu(const char* const fileName) {
                 exit(EXIT_FAILURE);
             }
             break;
-        case maxProfitDay:
+        case MAX_PROFIT_DAY:
             printMaxProfitDay(arrayData,idData);
             break;
-        case maxHourDay:
+        case MAX_HOUR_DAY:
             printMaxHourDay(arrayData,idData);
             break;
-        case sortProfit:
+        case SORT_PROFIT:
             maxProfitPrint(arrayData, idData);
             break;
-        case sortHour:
+        case SORT_HOUR:
             maxPerHourPrint(arrayData, idData);
             break;
-        case delete:
+        case DELETE_DAY:
+            deleteDay(arrayData, fileName);
+            break;
+        case DELETE_F:
             if (deleteFile(fileName) == 0) {
                 createFile(fileName);
 
@@ -103,16 +106,13 @@ int mainMenu(const char* const fileName) {
                 }
             }
             break;
-        case deleteF:
-            deleteFile(fileName);
-            break;
-        case edit:
+        case EDIT_DAY:
             editDayByID((DATA*) arrayData,fileName);
             break;
-        case search:
+        case SEARCH_DAY:
             foundID = (DATA*)searchDate(arrayData);
             break;
-        case programExit:
+        case PROGRAM_EXIT:
             choice = exitProgram(arrayData);
             if (choice == 0)
                 return 0;
