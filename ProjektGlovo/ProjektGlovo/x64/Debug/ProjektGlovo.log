@@ -1,0 +1,5 @@
+﻿  functions.c
+C:\Users\student\source\repos\ProjektGlovo\ProjektGlovo\functions.c(197): warning C4716: 'printData': must return a value
+C:\Users\student\source\repos\ProjektGlovo\ProjektGlovo\functions.c(440): warning C4715: 'searchDate': not all control paths return a value
+C:\Users\student\source\repos\ProjektGlovo\ProjektGlovo\functions.c(412,3): warning C4033: 'searchDate' must return a value
+  ProjektGlovo.vcxproj -> C:\Users\student\Source\Repos\ProjektGlovo\x64\Debug\ProjektGlovo.exe
